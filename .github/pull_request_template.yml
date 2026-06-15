@@ -1,0 +1,96 @@
+name: Pull Request
+description: Create a pull request to contribute changes
+title: "[PR] "
+labels: []
+assignees: []
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for your contribution! Please fill out the form below to help us review your PR efficiently.
+
+  - type: dropdown
+    id: type
+    attributes:
+      label: Type of Change
+      description: What type of change does this PR introduce?
+      options:
+        - Bug fix
+        - New feature
+        - Breaking change
+        - Documentation update
+        - Refactoring
+        - Performance improvement
+        - Other
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: A clear and concise description of your changes
+      placeholder: Describe what changes you made and why...
+    validations:
+      required: true
+
+  - type: textarea
+    id: motivation
+    attributes:
+      label: Motivation and Context
+      description: Why is this change needed? What problem does it solve?
+    validations:
+      required: true
+
+  - type: textarea
+    id: testing
+    attributes:
+      label: How Has This Been Tested?
+      description: Describe the tests you ran to verify your changes
+      placeholder: |
+        - [ ] Test A
+        - [ ] Test B
+        - [ ] Manual testing
+    validations:
+      required: true
+
+  - type: textarea
+    id: screenshots
+    attributes:
+      label: Screenshots (if applicable)
+      description: Add screenshots or GIFs to demonstrate the changes
+
+  - type: checkboxes
+    id: breaking
+    attributes:
+      label: Breaking Changes
+      options:
+        - label: This PR introduces breaking changes
+          required: false
+
+  - type: textarea
+    id: migration
+    attributes:
+      label: Migration Guide (if breaking changes)
+      description: If this has breaking changes, describe how users should migrate
+
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: Checklist
+      options:
+        - label: My code follows the code style guidelines
+          required: true
+        - label: I have performed a self-review of my code
+          required: true
+        - label: I have commented my code (especially complex logic)
+          required: true
+        - label: I have updated the documentation
+          required: true
+        - label: My changes generate no new warnings or errors
+          required: true
+        - label: I have added tests that prove my fix/feature works
+          required: false
+        - label: I have updated CHANGELOG.md
+          required: false
