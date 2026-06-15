@@ -348,8 +348,6 @@ Subscribe to get updates about new features and releases:
 
 **[⬆ back to top](#voiceflow-)**
 
-Made with ❤️ by [Your Name](https://github.com/yourusername)
-
-[GitHub](https://github.com/yourusername/voiceflow) • [Twitter](#) • [LinkedIn](#)
+Made with ❤️ by [Himanshu Singh Yadav](https://github.com/iamhimanshu-07)
 
 </div>
