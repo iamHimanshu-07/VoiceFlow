@@ -222,8 +222,6 @@ CMD ["npm", "start"]
 
 ---
 
-## 🗺️ Roadmap
-
 ### Planned Features
 - [ ] Cloud storage for transcriptions
 - [ ] Multi-language support with auto-detection
@@ -235,14 +233,6 @@ CMD ["npm", "start"]
 - [ ] Advanced settings and preferences
 - [ ] Keyboard shortcuts customization
 - [ ] Team collaboration features
-
----
-
-## 📊 Stats
-
-[![GitHub Stars](https://img.shields.io/github/stars/yourusername/voiceflow?style=social)](https://github.com/yourusername/voiceflow)
-[![GitHub Forks](https://img.shields.io/github/forks/yourusername/voiceflow?style=social)](https://github.com/yourusername/voiceflow)
-[![GitHub Watchers](https://img.shields.io/github/watchers/yourusername/voiceflow?style=social)](https://github.com/yourusername/voiceflow)
 
 ---
 
