@@ -10,8 +10,6 @@
 
 **AI-Powered Speech Recognition Web Application**
 
-[Live Demo](https://speech-recognition-web-rho.vercel.app/) • [Features](#features) • [Getting Started](#getting-started) • [Documentation](#documentation)
-
 </div>
 
 ---
@@ -181,16 +179,6 @@ npm run lint
 
 ---
 
-## 📝 Environment Variables
-
-Currently, VoiceFlow doesn't require any environment variables to run locally. However, for production deployment on Vercel:
-
-```env
-NEXT_PUBLIC_VERCEL_URL=your-domain.com
-```
-
----
-
 ## 🚀 Deployment
 
 ### Deploy on Vercel (Recommended)
@@ -234,70 +222,6 @@ CMD ["npm", "start"]
 
 ---
 
-## 🤝 Contributing
-
-We welcome contributions from the community! To contribute:
-
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
-
-Please see [CONTRIBUTING.md](CONTRIBUTING.md) for detailed guidelines.
-
-### Development Guidelines
-- Follow the existing code style and patterns
-- Write meaningful commit messages
-- Add comments for complex logic
-- Test your changes thoroughly
-- Update documentation as needed
-
----
-
-## 📄 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-### You are free to:
-- ✅ Use commercially
-- ✅ Modify the source code
-- ✅ Distribute the software
-- ✅ Use privately
-
-### With the condition of:
-- 📋 Include a copy of the license and copyright notice
-
----
-
-## 🐛 Reporting Issues
-
-Found a bug? Have a suggestion? Please open an [Issue](https://github.com/yourusername/voiceflow/issues) on GitHub with:
-
-- Clear description of the problem
-- Steps to reproduce (if applicable)
-- Expected vs actual behavior
-- Screenshots or error messages
-- Your browser/OS information
-
----
-
-## 💬 Support
-
-### Get Help
-- 📚 Check the [Documentation](#documentation)
-- 🔍 Search existing [Issues](https://github.com/yourusername/voiceflow/issues)
-- 💡 Open a new [Discussion](https://github.com/yourusername/voiceflow/discussions)
-- 📧 Contact via email (if available)
-
-### Resources
-- [Web Speech API Documentation](https://developer.mozilla.org/en-US/docs/Web/API/Web_Speech_API)
-- [Next.js Documentation](https://nextjs.org/docs)
-- [React Documentation](https://react.dev)
-- [Tailwind CSS Documentation](https://tailwindcss.com/docs)
-
----
-
 ## 🗺️ Roadmap
 
 ### Planned Features
@@ -314,21 +238,6 @@ Found a bug? Have a suggestion? Please open an [Issue](https://github.com/yourus
 
 ---
 
-## 👥 Credits
-
-### Built By
-- Your Name / Organization
-
-### Acknowledgments
-- [Vercel](https://vercel.com) for hosting and analytics
-- [Next.js](https://nextjs.org) team for the amazing framework
-- [React](https://react.dev) community
-- [Tailwind CSS](https://tailwindcss.com) for styling utilities
-- [shadcn/ui](https://ui.shadcn.com) for UI components
-- All [contributors](https://github.com/yourusername/voiceflow/graphs/contributors)
-
----
-
 ## 📊 Stats
 
 [![GitHub Stars](https://img.shields.io/github/stars/yourusername/voiceflow?style=social)](https://github.com/yourusername/voiceflow)
@@ -337,17 +246,10 @@ Found a bug? Have a suggestion? Please open an [Issue](https://github.com/yourus
 
 ---
 
-## 📮 Newsletter
-
-Subscribe to get updates about new features and releases:
-[Subscribe Here](#)
-
----
-
 <div align="center">
 
 **[⬆ back to top](#voiceflow-)**
 
-Made with ❤️ by [Himanshu Singh Yadav](https://github.com/iamhimanshu-07)
+Made with ❤️ by [Himanshu Singh Yadav]
 
 </div>
