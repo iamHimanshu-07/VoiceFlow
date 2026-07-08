@@ -178,11 +178,3 @@ npm run lint
 - Prettier formatting (recommended)
 
 ---
-
-<div align="center">
-
-**[⬆ back to top](#voiceflow-)**
-
-Made with ❤️ by [Himanshu Singh Yadav]
-
-</div>
