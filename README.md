@@ -159,9 +159,8 @@ voiceflow/
 - `Ctrl+C` / `Cmd+C` - Copy text
 - `Ctrl+X` / `Cmd+X` - Clear text
 
-### Theme Switching
-- Click the theme toggle button in the header to switch between light and dark modes
-- Your preference is saved in browser storage
+### Image
+<img width="1366" height="768" alt="image" src="https://github.com/user-attachments/assets/7f161c28-7764-492b-9a5b-3ee90fb60c78" />
 
 ---
 
