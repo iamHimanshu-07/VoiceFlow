@@ -1,19 +1,33 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
+import { Mic, Activity, Zap, RefreshCw, Copy, Trash2, Download } from 'lucide-react';
+import { AnimatedMic } from '@/components/animated-mic';
+import { WaveformVisualizer } from '@/components/waveform-visualizer';
+import useVoiceFlowStore from '@/store/useVoiceFlowStore';
 
 export default function Page() {
-  // State for transcript and interim results
-  const [transcript, setTranscript] = useState('');
-  const [interimTranscript, setInterimTranscript] = useState('');
-  const [isListening, setIsListening] = useState(false);
-  const [lang, setLang] = useState('en-US');
+  // Using Zustand store for state management
+  const {
+    transcript,
+    setTranscript,
+    interimTranscript,
+    setInterimTranscript,
+    isListening,
+    setIsListening,
+    lang,
+    setLang,
+    debugInfo,
+    setDebugInfo,
+    lastFinalTime,
+    setLastFinalTime,
+    clearTranscript
+  } = useVoiceFlowStore();
+
   const recognitionRef = useRef<SpeechRecognition | null>(null);
   const [isStopping, setIsStopping] = useState(false);
-  const [lastFinalTime, setLastFinalTime] = useState(0);
   const lastStartTimeRef = useRef(0);
   const watchdogIntervalRef = useRef<NodeJS.Timeout | null>(null);
-  const [debugInfo, setDebugInfo] = useState('');
 
   // Initialize speech recognition and set up event handlers
   useEffect(() => {
@@ -93,6 +107,104 @@ export default function Page() {
         }
       };
 
+      // Voice command detection
+      const processVoiceCommand = (text: string) => {
+        const command = text.toLowerCase().trim();
+
+        // Start listening commands
+        if (command.includes('start listening') || command.includes('hey voiceflow start') ||
+            command.includes('voiceflow start') || command.includes('begin listening')) {
+          if (!isListening) {
+            startListening();
+            setDebugInfo('Voice command: Started listening');
+            return true;
+          }
+        }
+
+        // Stop listening commands
+        if (command.includes('stop listening') || command.includes('hey voiceflow stop') ||
+            command.includes('voiceflow stop') || command.includes('stop listening') ||
+            command.includes('pause listening')) {
+          if (isListening) {
+            stopListening();
+            setDebugInfo('Voice command: Stopped listening');
+            return true;
+          }
+        }
+
+        // Clear transcript commands
+        if (command.includes('clear transcript') || command.includes('hey voiceflow clear') ||
+            command.includes('voiceflow clear') || command.includes('clear text') ||
+            command.includes('delete everything')) {
+          if (transcript.trim() || interimTranscript.trim()) {
+            clearTranscript();
+            setDebugInfo('Voice command: Cleared transcript');
+            return true;
+          }
+        }
+
+        // Copy transcript commands
+        if (command.includes('copy text') || command.includes('hey voiceflow copy') ||
+            command.includes('voiceflow copy') || command.includes('copy transcript') ||
+            command.includes('copy that')) {
+          if (transcript.trim()) {
+            copyTranscript();
+            setDebugInfo('Voice command: Copied transcript');
+            return true;
+          }
+        }
+
+        // Download transcript commands
+        if (command.includes('download') || command.includes('hey voiceflow download') ||
+            command.includes('voiceflow download') || command.includes('save transcript') ||
+            command.includes('save as file')) {
+          if (transcript.trim()) {
+            downloadTranscript();
+            setDebugInfo('Voice command: Downloaded transcript');
+            return true;
+          }
+        }
+
+        // Language change commands
+        if (command.includes('switch to spanish') || command.includes('change language to spanish') ||
+            command.includes('spanish language') || command.includes('español')) {
+          if (lang !== 'es-ES') {
+            setLang('es-ES');
+            setDebugInfo('Voice command: Switched to Spanish');
+            return true;
+          }
+        }
+
+        if (command.includes('switch to english') || command.includes('change language to english') ||
+            command.includes('english language') || command.includes('english')) {
+          if (lang !== 'en-US') {
+            setLang('en-US');
+            setDebugInfo('Voice command: Switched to English');
+            return true;
+          }
+        }
+
+        if (command.includes('switch to french') || command.includes('change language to french') ||
+            command.includes('french language') || command.includes('français')) {
+          if (lang !== 'fr-FR') {
+            setLang('fr-FR');
+            setDebugInfo('Voice command: Switched to French');
+            return true;
+          }
+        }
+
+        if (command.includes('switch to german') || command.includes('change language to german') ||
+            command.includes('german language') || command.includes('deutsch')) {
+          if (lang !== 'de-DE') {
+            setLang('de-DE');
+            setDebugInfo('Voice command: Switched to German');
+            return true;
+          }
+        }
+
+        return false;
+      };
+
       recognition.onresult = (e) => {
         console.log('Speech recognition result received:', e);
         setDebugInfo(`Result received: ${e.results.length} results`);
@@ -119,9 +231,16 @@ export default function Page() {
         }
 
         if (final.trim()) {
-          setTranscript(prev => prev + final.trim() + ' ');
+          // Check for voice commands in final transcript
+          const commandRecognized = processVoiceCommand(final.trim());
+
+          // Only add to transcript if it wasn't a command (or if it was a command we still want to show)
+          if (!commandRecognized) {
+            setTranscript(prev => prev + final.trim() + ' ');
+          }
           setInterimTranscript(''); // Clear interim when we have final results
           setLastFinalTime(Date.now());
+
           // Send final transcript to backend
           try {
             fetch('/api/voiceflow', {
@@ -237,49 +356,268 @@ export default function Page() {
     }
   };
 
+  // clearTranscript is imported from the store, no need to redefine it here
+
+  const copyTranscript = () => {
+    navigator.clipboard.writeText(transcript).then(() => {
+      setDebugInfo('Transcript copied to clipboard!');
+      setTimeout(() => setDebugInfo(''), 2000);
+    }).catch(err => {
+      setDebugInfo(`Failed to copy: ${err.message}`);
+      setTimeout(() => setDebugInfo(''), 3000);
+    });
+  };
+
+  const downloadTranscript = () => {
+    if (!transcript.trim()) return;
+    const blob = new Blob([transcript], { type: 'text/plain' });
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `voiceflow-transcript-${new Date().toISOString().slice(0,10)}.txt`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    window.URL.revokeObjectURL(url);
+    setDebugInfo('Transcript downloaded!');
+    setTimeout(() => setDebugInfo(''), 2000);
+  };
+
   return (
     <div className="min-h-screen bg-black text-white flex flex-col items-center justify-center p-4">
-      <h1 className="text-3xl font-bold mb-4">VoiceFlow</h1>
-      <div className="mb-4">
-        <label className="mr-2">Language:</label>
-        <select value={lang} onChange={(e) => setLang(e.target.value)} className="border rounded px-2 py-1">
+      {/* Animated Header with Waveform Background */}
+      <motion.div
+        className="relative mb-8"
+        initial={{ y: -20, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.8, ease: 'out' }}
+      >
+        <WaveformVisualizer
+          isListening={isListening}
+          audioLevel={isListening ? Math.random() * 0.3 + 0.7 : 0}
+          height={120}
+          width={400}
+          color="voiceflow-500"
+          className="absolute inset-0 pointer-events-none opacity-20"
+        />
+        <motion.h1
+          className="text-4xl font-bold bg-gradient-to-r from-voiceflow-400 to-voiceflow-600 bg-clip-text text-transparent animate-pulse-slow relative z-10"
+          style={{ background: 'linear-gradient(90deg, var(--voiceflow-400), var(--voiceflow-600))' }}
+        >
+          VoiceFlow
+        </motion.h1>
+      </motion.div>
+
+      {/* Subtitle */}
+      <motion.p
+        className="mb-8 text-xl text-white/70 max-w-md text-center"
+        initial={{ y: 20, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.8, delay: 0.2, ease: 'out' }}
+      >
+        AI-Powered Speech Recognition with Real-Time Animation
+      </motion.p>
+
+      {/* Language Selector */}
+      <motion.div
+        className="mb-6 w-full max-w-md"
+        initial={{ y: 10, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.6, delay: 0.4, ease: 'out' }}
+      >
+        <label className="block mb-2 text-sm font-medium text-white/80">
+          Language:
+        </label>
+        <select
+          value={lang}
+          onChange={(e) => setLang(e.target.value)}
+          className="w-full bg-gray-800/50 backdrop-blur-sm border border-white/10 rounded-lg px-4 py-3 text-white focus:ring-2 focus:ring-voiceflow-500 focus:outline-none transition-all duration-300"
+        >
           <option value="en-US">English (US)</option>
           <option value="es-ES">Español</option>
           <option value="fr-FR">Français</option>
           <option value="de-DE">Deutsch</option>
         </select>
-      </div>
-      <div className="flex space-x-3">
-        <button
-          onClick={startListening}
-          disabled={isListening}
-          className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
-        >
-          Start Listening
-        </button>
-        <button
-          onClick={stopListening}
-          disabled={!isListening}
-          className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded"
-        >
-          Stop
-        </button>
-      </div>
-      <div className="mt-6 w-full max-w-xl">
-        <p className="mb-2 font-medium">Transcript:</p>
-        <div className="bg-gray-800 rounded p-4 min-h-[100px] whitespace-pre-wrap break-words">
-          {transcript}
-          {/* Show interim results with different styling for real-time feedback */}
-          {interimTranscript && <span className="text-gray-400 italic">{' ' + interimTranscript}</span>}
+      </motion.div>
+
+      {/* Main Controls */}
+      <motion.div
+        className="mb-10 w-full max-w-md space-x-4"
+        initial={{ y: 10, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.6, delay: 0.6, ease: 'out' }}
+      >
+        <motion.div className="flex items-center space-x-6">
+          <AnimatedMic
+            isListening={isListening}
+            transcriptLength={transcript.length}
+            onToggleListening={isListening ? stopListening : startListening}
+            className="flex-shrink-0"
+          />
+
+          <motion.div className="flex-1 space-y-4">
+            <div className="flex space-x-3">
+              <button
+                onClick={startListening}
+                disabled={isListening}
+                className="flex-1 bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white font-bold py-3 px-4 rounded-lg transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/20 transform hover:-translate-y-0.5"
+              >
+                Start Listening
+              </button>
+              <button
+                onClick={stopListening}
+                disabled={!isListening}
+                className="flex-1 bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white font-bold py-3 px-4 rounded-lg transition-all duration-300 hover:shadow-lg hover:shadow-red-500/20 transform hover:-translate-y-0.5"
+              >
+                Stop
+              </button>
+            </div>
+
+            <div className="flex space-x-3">
+              <button
+                onClick={clearTranscript}
+                disabled={!transcript && !interimTranscript}
+                className="flex-1 bg-gradient-to-r from-gray-500 to-gray-600 hover:from-gray-600 hover:to-gray-700 text-white font-bold py-3 px-4 rounded-lg transition-all duration-300 hover:shadow-lg"
+              >
+                Clear
+              </button>
+              <button
+                onClick={copyTranscript}
+                disabled={!transcript}
+                className="flex-1 bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white font-bold py-3 px-4 rounded-lg transition-all duration-300 hover:shadow-lg"
+              >
+                Copy
+              </button>
+              <button
+                onClick={downloadTranscript}
+                disabled={!transcript}
+                className="flex-1 bg-gradient-to-r from-yellow-500 to-yellow-600 hover:from-yellow-600 hover:to-yellow-700 text-white font-bold py-3 px-4 rounded-lg transition-all duration-300 hover:shadow-lg"
+              >
+                Download
+              </button>
+            </div>
+          </motion.div>
+        </motion.div>
+      </motion.div>
+
+      {/* Transcript Area */}
+      <motion.div
+        className="w-full max-w-xl"
+        initial={{ y: 10, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.6, delay: 0.8, ease: 'out' }}
+      >
+        <div className="mb-4 flex items-center justify-between">
+          <p className="text-lg font-medium">Transcript:</p>
+          <div className="flex space-x-2 text-sm">
+            <span className="text-white/50">{transcript.length}</span>
+            <span className="text-white/50">characters</span>
+          </div>
         </div>
-      </div>
-      <div className="mt-4 p-2 bg-gray-900 rounded text-xs">
-        <p className="font-medium">Debug Info:</p>
-        <p className="break-all">{debugInfo}</p>
-      </div>
-      <p className="mt-4 text-sm text-gray-400">
-        Status: {isListening ? 'Listening...' : 'Ready'}
-      </p>
+
+        <div className="relative">
+          <div className="bg-gray-900/50 backdrop-blur-sm border border-white/10 rounded-xl p-6 min-h-[240px] whitespace-pre-wrap break-words transition-all duration-300 hover:border-white/20">
+            {transcript}
+            {/* Show interim results with different styling for real-time feedback */}
+            {interimTranscript && <span className="text-gray-400 italic animate-pulse">{' ' + interimTranscript}</span>}
+
+            {/* Animated placeholder when empty */}
+            {!transcript && !interimTranscript && (
+              <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                <motion.div
+                  className="text-white/20 text-lg"
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.9 }}
+                >
+                  Speak to begin...
+                </motion.div>
+              </div>
+            )}
+          </div>
+
+          {/* Enhanced Audio Level Indicator */}
+          {isListening && (
+            <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex space-x-2">
+              {[...Array(8)].map((_, i) => (
+                <motion.span
+                  key={i}
+                  className="bg-voiceflow-400/30 rounded w-2"
+                  style={{
+                    height: `${Math.random() * 30 + 10}px`,
+                    animation: `waveform ${Math.random() * 0.6 + 0.4}s ${Math.random() * 0.6}s ease-in-out infinite`
+                  }}
+                />
+              ))}
+            </div>
+          )}
+        </div>
+      </motion.div>
+
+      {/* Debug Info */}
+      <motion.div
+        className="mt-6 w-full max-w-xl"
+        initial={{ y: 10, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.6, delay: 1.0, ease: 'out' }}
+      >
+        <div className="bg-gray-900/50 backdrop-blur-sm border border-white/10 rounded-xl p-4">
+          <p className="mb-2 font-medium text-sm">Debug Info:</p>
+          <p className="break-all text-xs text-white/70">{debugInfo}</p>
+        </div>
+      </motion.div>
+
+      {/* Status Indicator */}
+      <motion.p
+        className="mt-4 text-sm text-gray-400"
+        initial={{ y: 10, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.6, delay: 1.2, ease: 'out' }}
+      >
+        <span>
+          Status:&nbsp;
+          {isListening ? (
+            <>
+              <motion.span
+                whileHover={{ scale: 1.2 }}
+                whileTap={{ scale: 0.9 }}
+                className="text-voiceflow-400"
+              >
+                ●
+              </motion.span>
+              <span className="ml-1">Listening...</span>
+            </>
+          ) : (
+            <span>Ready</span>
+          )}
+        </span>
+      </motion.p>
+
+      {/* Enhanced Confetti Celebration */}
+      {transcript.length > 30 && !isListening && (
+        <motion.div
+          className="fixed inset-0 pointer-events-none"
+          style={{
+            '--count': transcript.length > 100 ? '100' : transcript.length > 75 ? '70' : transcript.length > 50 ? '50' : '30'
+          }}
+        >
+          {[...Array(parseInt(getComputedStyle(document.documentElement).getPropertyValue('--count') || '30'))].map((_, i) => (
+            <motion.span
+              key={i}
+              className="absolute pointer-events-none"
+              style={{
+                left: `${Math.random() * 100}%`,
+                top: `${Math.random() * 100}%`,
+                background: `hsl(${Math.random() * 60}, 80%, 50%)`,
+                width: `${Math.random() * 4 + 2}px`,
+                height: `${Math.random() * 6 + 2}px`,
+                borderRadius: '50%',
+                opacity: Math.random() * 0.6 + 0.4,
+                animation: `confetti ${Math.random() * 4 + 3}s ${Math.random() * 2}s ease-out forwards`
+              }}
+            />
+          ))}
+        </motion.div>
+      )}
     </div>
   );
 }
