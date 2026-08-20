@@ -216,6 +216,31 @@
     to { opacity: 1; transform: scale(1); }
   }
 
+  /* Mic pulse animation */
+  @keyframes mic-pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+  }
+
+  /* Slow pulse for continuous animation */
+  @keyframes pulse-slow {
+    0%, 100% { opacity: 0.5; }
+    50% { opacity: 0.8; }
+  }
+
+  /* Waveform animation for audio visualization */
+  @keyframes waveform {
+    0%, 100% { transform: scaleY(1); }
+    50% { transform: scaleY(1.5); }
+  }
+
+  /* Confetti animation */
+  @keyframes confetti {
+    0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+    100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+  }
+
   .animate-fade-in {
     animation: fade-in 0.6s ease-out forwards;
   }
@@ -230,5 +255,13 @@
 
   .animate-scale-in {
     animation: scale-in 0.6s ease-out forwards;
+  }
+
+  .animate-mic-pulse {
+    animation: mic-pulse 1.5s ease-in-out infinite;
+  }
+
+  .animate-pulse-slow {
+    animation: pulse-slow 2s ease-in-out infinite;
   }
 }

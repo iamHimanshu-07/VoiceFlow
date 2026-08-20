@@ -1,135 +1,100 @@
-# VoiceFlow 🎤
+# VoiceFlow - Real-Time Speech Recognition
 
-<div align="center">
+A modern, responsive single-page web application for real-time speech recognition using HTML, Tailwind CSS, and vanilla JavaScript (leveraging the Web Speech API).
 
-[![Next.js](https://img.shields.io/badge/Next.js-15.2.0-black?style=flat-square&logo=next.js)](https://nextjs.org)
-[![React](https://img.shields.io/badge/React-18.2-61DAFB?style=flat-square&logo=react)](https://react.dev)
-[![TypeScript](https://img.shields.io/badge/TypeScript-5.8-blue?style=flat-square&logo=typescript)](https://www.typescriptlang.org)
-[![Tailwind CSS](https://img.shields.io/badge/Tailwind-4.0-38B2AC?style=flat-square&logo=tailwind-css)](https://tailwindcss.com)
-[![Framer Motion](https://img.shields.io/badge/Framer%20Motion-12.0-%230055FF?style=flat-square&logo=framer)](https://www.framer.com/motion/)
-[![Zustand](https://img.shields.io/badge/Zustand-5.0-%23FFC300?style=flat-square)](https://zustand-demo.pmndrs.com/)
-[![License](https://img.shields.io/badge/License-MIT-green?style=flat-square)](LICENSE)
+## Features
 
-**AI-Powered Speech Recognition Web Application with Advanced UI/UX**
+- **Real-time Speech Recognition**: Powered by the Web Speech API
+- **Ultra-Dark Theme**: Sophisticated dark mode with vibrant accent colors
+- **Responsive Design**: Works seamlessly on mobile and desktop devices
+- **Voice Control**: Control the application using voice commands
+- **Live Transcript**: See your words appear instantly as you speak
+- **Metrics Dashboard**: Track word count, character count, confidence, and duration
+- **Audio Visualizer**: Real-time waveform visualization of your speech
+- **Export & Utility**: Copy to clipboard or download as .txt file
+- **Multi-Language Support**: Supports multiple languages (English, Spanish, French, German, Italian, Portuguese, Japanese, Korean, Chinese, Russian, Arabic, Hindi)
+- **Light/Dark Mode Toggle**: Easily switch between themes
+- **Confetti Celebration**: Fun visual reward for substantial transcriptions
 
-</div>
+## Design & Theme
 
----
+- **Theme**: Ultra-dark theme (background: #090d16 / near-black, card containers: #111827 / slate-900)
+- **Accent Colors**: 
+  - Vibrant neon cyan (#06b6d4 / #00d2ff) for titles, active highlights, and primary buttons
+  - Muted crimson/burgundy (#991b1b) for the Stop button
+- **Typography**: Clean sans-serif (Inter or system font)
 
-## 📋 Overview
+## Layout
 
-VoiceFlow is a modern, AI-powered speech recognition application built with Next.js and React. It provides real-time voice-to-text conversion with an intuitive user interface and support for multiple languages. Perfect for transcription, note-taking, accessibility, and voice command applications.
+### Top Navigation Bar
+- Left: Logo icon + "VoiceFlow" brand name
+- Right: "Light Mode" / "Dark Mode" toggle button
 
-### Key Highlights
-- ⚡ Real-time speech recognition with Web Speech API
-- 🎨 Modern, responsive UI with light/dark mode support
-- 🔧 Built with Next.js 15.2.0 and React 18.2
-- 📱 Fully responsive design for mobile and desktop
-- 🌙 Dark mode theme by default
-- 🎯 Easy-to-use and accessible interface
-- 🚀 Deployed on Vercel with analytics
+### Main Dashboard (2-Column Grid on desktop, 1-Column on mobile)
 
----
+#### Left Column (Controls & Settings)
+- Header: Glowing cyan heading + descriptive subtitle
+- Control Card:
+  - LANGUAGE: Dropdown select menu
+  - OPTIONS: Checkboxes for "Live Preview" and "Continuous" listening
+  - Action Buttons: "Start Listening" (cyan) and "Stop" (crimson)
+  - Status Indicator: Badge showing current status
+  - Live Audio Visualizer: Waveform bars showing audio levels
 
-## ✨ Features
+#### Right Column (Transcript & Analytics)
+- Live Transcript Card:
+  - Label: "LIVE TRANSCRIPT"
+  - Large transcript display area with auto-scroll
+  - Character and word counters
+- Statistics Card:
+  - Label: "STATISTICS"
+  - 2x2 Metric Grid: WORDS, CHARACTERS, DURATION, CONFIDENCE
+  - Action Buttons: Copy, Download, and Clear All
 
-### Core Functionality
-- **Real-time Speech Recognition** - Converts spoken words to text instantly
-- **Multiple Language Support** - Recognizes various languages and accents
-- **Theme Toggle** - Switch between dark and light modes
-- **Text Export** - Copy and export recognized text
-- **Clear History** - Reset and clear previous recordings
-- **Visual Feedback** - Real-time recording indicators and status updates
-- **Error Handling** - User-friendly error messages and recovery options
+## Functional Features
 
-### Technical Features
-- Built with Next.js 15.2.0 (App Router)
-- React 18.2 with modern hooks and patterns
-- Tailwind CSS v4 for responsive styling
-- TypeScript for type safety
-- shadcn/ui components for consistency
-- Lucide React icons
-- Vercel Analytics integration
-- Mobile-first responsive design
+1. **Web Speech API Integration**: Implements `window.SpeechRecognition` or `window.webkitSpeechRecognition`
+2. **Dynamic Metrics**: Updates word count, character count, confidence score, and elapsed recording duration in real time
+3. **Fallback Handling**: Shows user-friendly messages if browser doesn't support Web Speech API or microphone access is denied
+4. **Export & Utility**: Full functionality for copying to clipboard and downloading text files
+5. **Voice Commands**: Control the application hands-free with voice commands like:
+   - "Start listening" / "Hey VoiceFlow start"
+   - "Stop listening" / "Hey VoiceFlow stop"
+   - "Clear transcript" / "Hey VoiceFlow clear"
+   - "Copy text" / "Hey VoiceFlow copy"
+   - "Download transcript" / "Hey VoiceFlow download"
+   - Language switching: "Switch to Spanish", "Switch to English", etc.
 
----
+## Browser Support
 
-## 📁 Project Structure
+VoiceFlow works best in browsers that support the Web Speech API:
+- Google Chrome (recommended)
+- Microsoft Edge
+- Safari (with limited support)
 
-```
-voiceflow/
-├── app/                          # Next.js app directory
-│   ├── layout.tsx               # Root layout with metadata
-│   ├── page.tsx                 # Main page component
-│   └── globals.css              # Global styles
-├── components/                   # React components
-│   └── ui/                       # shadcn/ui components
-│       └── button.tsx           # Button component
-├── lib/                          # Utility functions
-│   └── utils.ts                 # Helper functions
-├── public/                       # Static assets
-│   ├── icon.svg
-│   ├── icon-dark-32x32.png
-│   ├── icon-light-32x32.png
-│   └── apple-icon.png
-├── next.config.mjs              # Next.js configuration
-├── tailwind.config.ts           # Tailwind CSS configuration
-├── tsconfig.json                # TypeScript configuration
-├── postcss.config.mjs           # PostCSS configuration
-├── package.json                 # Project dependencies
-├── README.md                    # This file
-├── LICENSE                      # MIT License
-└── .gitignore                   # Git ignore rules
-```
+## Installation & Usage
 
----
+1. Clone or download this repository
+2. Open `index.html` in your preferred browser (Chrome or Edge recommended)
+3. Click the "Start Listening" button and allow microphone access when prompted
+4. Begin speaking to see real-time transcription
+5. Use voice commands or UI controls to manage the application
 
-## 🛠️ Technology Stack
+## Customization
 
-| Technology | Purpose | Version |
-|-----------|---------|---------|
-| **Next.js** | React Framework | 15.2.0 |
-| **React** | UI Library | 18.2.0 |
-| **TypeScript** | Type Safety | 5.8.0 |
-| **Tailwind CSS** | Styling | 4.0.0 |
-| **shadcn/ui** | UI Components | Latest |
-| **Lucide React** | Icons | 1.25.0 |
-| **Vercel Analytics** | Analytics | 2.0.0 |
-| **Framer Motion** | Animations | 12.0.0 |
-| **Zustand** | State Management | 5.0.0 |
+To modify the application:
+- Edit the languages in the `<select id="language-select">` element
+- Adjust colors by modifying the CSS variables in the `:root` section
+- Modify voice commands in the `processVoiceCommand()` method
+- Adjust confetti effects in the `showConfetti()` method
 
----
+## Credits
 
-## 📖 Usage
+Built with:
+- [Tailwind CSS](https://tailwindcss.com/) (via CDN)
+- [Inter Font](https://fonts.google.com/specimen/Inter) (via Google Fonts)
+- [Web Speech API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Speech_API)
 
-### Basic Usage
+## License
 
-1. Click the microphone icon or "Start Recording" button
-2. Speak clearly into your microphone
-3. The app converts your speech to text in real-time
-4. Click "Stop Recording" when done
-5. Copy the text or export it as needed
-
-### Keyboard Shortcuts (Optional)
-- `Space` - Start/Stop recording
-- `Ctrl+C` / `Cmd+C` - Copy text
-- `Ctrl+X` / `Cmd+X` - Clear text
-
-### Image
-<img width="1366" height="768" alt="image" src="https://github.com/user-attachments/assets/7f161c28-7764-492b-9a5b-3ee90fb60c78" />
-
----
-
-## 🧪 Testing & Quality Assurance
-
-### Run Linting
-```bash
-npm run lint
-```
-
-### Code Quality
-- TypeScript strict mode enabled for type safety
-- ESLint configuration for code consistency
-- Prettier formatting (recommended)
-
----
+MIT License - feel free to use and modify this project as needed.

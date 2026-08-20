@@ -1,7 +1,23 @@
 {
   "name": "voiceflow",
   "version": "1.0.0",
-  "description": "AI-Powered Speech Recognition Web Application - Convert voice to text with real-time accuracy",
+  "description": "A modern, responsive single-page web application for real-time speech recognition using HTML, Tailwind CSS, and vanilla JavaScript",
+  "main": "index.html",
+  "scripts": {
+    "dev": "echo \"To develop, simply open index.html in a browser\" && exit 0",
+    "build": "echo \"No build step required - static HTML/CSS/JS\" && exit 0",
+    "start": "echo \"To start, open index.html in a browser\" && exit 0"
+  },
+  "keywords": [
+    "speech-recognition",
+    "voice-to-text",
+    "web-speech-api",
+    "html",
+    "tailwindcss",
+    "javascript",
+    "real-time",
+    "transcription"
+  ],
   "author": "VoiceFlow Contributors",
   "license": "MIT",
   "repository": {
@@ -11,48 +27,5 @@
   "bugs": {
     "url": "https://github.com/yourusername/voiceflow/issues"
   },
-  "homepage": "https://voiceflow-x.vercel.app/",
-  "keywords": [
-    "speech-recognition",
-    "voice-to-text",
-    "web-speech-api",
-    "nextjs",
-    "react",
-    "typescript",
-    "tailwindcss",
-    "real-time",
-    "transcription",
-    "accessibility"
-  ],
-  "private": false,
-  "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "eslint .",
-    "type-check": "tsc --noEmit"
-  },
-  "dependencies": {
-    "@base-ui/react": "^1.6.0",
-    "@vercel/analytics": "^2.0.1",
-    "class-variance-authority": "^0.5.0",
-    "clsx": "^2.1.0",
-"framer-motion": "^12.4.0",
-    "lucide-react": "^1.33.0",
-    "next": "15.5.23",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1",
-    "shadcn": "^4.10.0",
-    "tailwind-merge": "^3.4.0",
-    "zustand": "^5.0.15"
-  },
-  "devDependencies": {
-    "@tailwindcss/postcss": "^4.0.0",
-    "@types/node": "^20.0.0",
-    "@types/react": "^19.0.0",
-    "@types/react-dom": "^19.0.0",
-    "postcss": "^8.5.26",
-    "tailwindcss": "^4.3.3",
-    "typescript": "^5.8.0"
-  }
+  "homepage": "https://voiceflow-x.vercel.app/"
 }
