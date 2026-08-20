@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Mic, Activity, Zap, RefreshCw, Copy, Trash2, Download } from 'lucide-react';
 import { AnimatedMic } from '@/components/animated-mic';
 import { WaveformVisualizer } from '@/components/waveform-visualizer';
