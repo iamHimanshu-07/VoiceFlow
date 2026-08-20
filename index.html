@@ -469,7 +469,7 @@
             <div class="flex items-center gap-3">
                 <div class="w-8 h-8 bg-[radial-gradient(circle_at_top_left,_var(--accent-cyan),transparent)] rounded-full flex items-center justify-center">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-[rgb(var(--nav-text-rgb))]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 14l9-5-9-5-9 5 9 5z" />
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5z" />
                     </svg>
                 </div>
                 <span class="text-xl font-extrabold text-[rgb(var(--nav-text-rgb))]">VoiceFlow</span>
@@ -504,7 +504,6 @@
                             <label class="block text-sm font-medium mb-2">LANGUAGE</label>
                             <select id="language-select" class="language-select w-full">
                                 <option value="en-US">English (US)</option>
-                                <option value="es-ES">Español</option>
                                 <option value="fr-FR">Français</option>
                                 <option value="de-DE">Deutsch</option>
                                 <option value="it-IT">Italiano</option>
@@ -524,7 +523,7 @@
                             <div class="space-y-2">
                                 <label class="checkbox-label">
                                     <input type="checkbox" id="live-preview" class="checkbox-input" checked>
-                                    <span>Live Preview (interim results)</span>
+                                    <span>Live Preview</span>
                                 </label>
                                 <label class="checkbox-label">
                                     <input type="checkbox" id="continuous" class="checkbox-input" checked>
@@ -551,7 +550,7 @@
                         <div class="flex items-center justify-between mt-4">
                             <div id="status-indicator" class="status-indicator status-ready">
                                 <span class="w-2 h-2 bg-[var(--text-secondary)] rounded-full"></span>
-                                <span>• Status: Ready</span>
+                                <span>Status: Ready</span>
                             </div>
                             <div id="timer-display" class="text-sm text-[var(--text-secondary)] font-mono timer-format">0s</div>
                         </div>
