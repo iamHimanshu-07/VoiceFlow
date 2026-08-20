@@ -166,6 +166,35 @@
     @apply font-sans;
   }
 
+  /* VoiceFlow custom color properties */
+  :root {
+    --voiceflow-50: #f0f9ff;
+    --voiceflow-100: #e0f2fe;
+    --voiceflow-200: #bae6fd;
+    --voiceflow-300: #7dd3fc;
+    --voiceflow-400: #38bdf8;
+    --voiceflow-500: #0ea5e9;
+    --voiceflow-600: #0284c7;
+    --voiceflow-700: #0369a1;
+    --voiceflow-800: #075985;
+    --voiceflow-900: #0c4a6e;
+    --voiceflow-950: #082f49;
+  }
+
+  .dark {
+    --voiceflow-50: #f0f9ff;
+    --voiceflow-100: #e0f2fe;
+    --voiceflow-200: #bae6fd;
+    --voiceflow-300: #7dd3fc;
+    --voiceflow-400: #38bdf8;
+    --voiceflow-500: #0ea5e9;
+    --voiceflow-600: #0284c7;
+    --voiceflow-700: #0369a1;
+    --voiceflow-800: #075985;
+    --voiceflow-900: #0c4a6e;
+    --voiceflow-950: #082f49;
+  }
+
   /* Custom animations for enhanced UI */
   @keyframes fade-in {
     from { opacity: 0; transform: translateY(20px); }

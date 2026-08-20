@@ -51,17 +51,55 @@ export const WaveformVisualizer = ({
         const x = i * (barWidth + 2);
         const y = centerY - height / 2;
 
-        // Gradient
-        const gradient = ctx.createLinearGradient(x, y, x, y + height);
-        gradient.addColorStop(0, `hsl(var(--${color}))`);
-        gradient.addColorStop(1, `hsl(var(--${color}))/0.5`);
+        // Get the color value from CSS variable (should be a hex color like #0ea5e9)
+      const colorValue = getComputedStyle(document.documentElement).getPropertyValue(`--${color}`).trim();
 
+      // Handle potential empty or invalid color value
+      if (!colorValue) {
+        // Fallback to a default color if CSS variable is not found
+        const gradient = ctx.createLinearGradient(x, y, x, y + height);
+        gradient.addColorStop(0, '#0ea5e9'); // voiceflow-500
+        gradient.addColorStop(1, '#0ea5e980'); // 50% opacity
         ctx.fillStyle = gradient;
         ctx.fillRect(x, y, barWidth, height);
-
-        // Glow effect
-        ctx.shadowColor = `hsl(var(--${color}))/0.3`;
+        ctx.shadowColor = '#0ea5e94d'; // 30% opacity
         ctx.shadowBlur = 4;
+        return;
+      }
+
+      // Gradient
+      const gradient = ctx.createLinearGradient(x, y, x, y + height);
+      gradient.addColorStop(0, colorValue); // Full opacity
+
+      // Create color with 50% opacity for second gradient stop
+      // Convert hex to rgba for proper opacity handling
+      const hexToRgba = (hex: string, opacity: number) => {
+        // Remove # if present
+        const cleanHex = hex.startsWith('#') ? hex.substring(1) : hex;
+
+        // Handle 3-digit hex format
+        if (cleanHex.length === 3) {
+          const r = parseInt(cleanHex.charAt(0) + cleanHex.charAt(0), 16);
+          const g = parseInt(cleanHex.charAt(1) + cleanHex.charAt(1), 16);
+          const b = parseInt(cleanHex.charAt(2) + cleanHex.charAt(2), 16);
+          return `rgba(${r}, ${g}, ${b}, ${opacity})`;
+        }
+
+        // Handle 6-digit hex format
+        const r = parseInt(cleanHex.substring(0, 2), 16);
+        const g = parseInt(cleanHex.substring(2, 4), 16);
+        const b = parseInt(cleanHex.substring(4, 6), 16);
+        return `rgba(${r}, ${g}, ${b}, ${opacity})`;
+      };
+
+      gradient.addColorStop(1, hexToRgba(colorValue, 0.5));
+
+      ctx.fillStyle = gradient;
+      ctx.fillRect(x, y, barWidth, height);
+
+      // Glow effect
+      ctx.shadowColor = hexToRgba(colorValue, 0.3);
+      ctx.shadowBlur = 4;
       }
     };
 
