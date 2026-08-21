@@ -2,11 +2,7 @@
   "version": 2,
   "builds": [
     {
-      "src": "index.html",
-      "use": "@vercel/static"
-    },
-    {
-      "src": "manifest.json",
+      "src": "(.*)",
       "use": "@vercel/static"
     }
   ],
