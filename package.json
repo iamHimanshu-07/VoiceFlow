@@ -4,9 +4,10 @@
   "description": "A modern, responsive single-page web application for real-time speech recognition using HTML, Tailwind CSS, and vanilla JavaScript",
   "main": "index.html",
   "scripts": {
-    "dev": "echo \"To develop, simply open index.html in a browser\" && exit 0",
-    "build": "echo \"No build step required - static HTML/CSS/JS\" && exit 0",
-    "start": "echo \"To start, open index.html in a browser\" && exit 0"
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
   },
   "keywords": [
     "speech-recognition",
@@ -27,5 +28,30 @@
   "bugs": {
     "url": "https://github.com/yourusername/voiceflow/issues"
   },
-  "homepage": "https://voiceflow-x.vercel.app/"
+  "homepage": "https://voiceflow-x.vercel.app/",
+  "dependencies": {
+    "@base-ui/react": "^1.6.0",
+    "@vercel/analytics": "^2.0.1",
+    "class-variance-authority": "^0.5.0",
+    "clsx": "^2.1.0",
+    "framer-motion": "^12.0.0",
+    "lucide-react": "^1.25.0",
+    "next": "15.2.8",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "shadcn": "^4.10.0",
+    "tailwind-merge": "^3.4.0",
+    "zustand": "^5.0.0"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4.0.0",
+    "@types/node": "^20.0.0",
+    "@types/react": "^18.0.0",
+    "@types/react-dom": "^18.0.0",
+    "eslint": "^9.39.5",
+    "eslint-config-next": "^16.3.4",
+    "postcss": "^8.4.14",
+    "tailwindcss": "^4.0.0",
+    "typescript": "^5.8.0"
+  }
 }
