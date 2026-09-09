@@ -62,7 +62,7 @@ Include:
 Currently, there are no known critical vulnerabilities in VoiceFlow.
 
 For security advisories, check:
-- [GitHub Security Advisories](https://github.com/yourusername/voiceflow/security/advisories)
+- [GitHub Security Advisories](https://github.com/iamHimanshu-07/voiceflow/security/advisories)
 - [npm Security Vulnerabilities](https://www.npmjs.com/package/voiceflow)
 
 ## Dependency Security

@@ -48,7 +48,7 @@ We are committed to providing a welcoming and inspiring community for all. We ex
 1. Fork the repository on GitHub
 2. Clone your fork locally:
    ```bash
-   git clone https://github.com/yourusername/voiceflow.git
+   git clone https://github.com/iamHimanshu-07/voiceflow.git
    cd voiceflow
    ```
 3. Add upstream remote:

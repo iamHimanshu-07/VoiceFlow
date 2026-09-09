@@ -23,10 +23,10 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/yourusername/voiceflow.git"
+    "url": "https://github.com/iamHimanshu-07/voiceflow.git"
   },
   "bugs": {
-    "url": "https://github.com/yourusername/voiceflow/issues"
+    "url": "https://github.com/iamHimanshu-07/voiceflow/issues"
   },
   "homepage": "https://voiceflow-x.vercel.app/",
   "dependencies": {

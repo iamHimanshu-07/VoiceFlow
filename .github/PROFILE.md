@@ -40,7 +40,7 @@ VoiceFlow is a web application that converts spoken words into text in real-time
 
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/voiceflow.git
+git clone https://github.com/iamHimanshu-07/voiceflow.git
 cd voiceflow
 
 # Install dependencies
@@ -90,8 +90,8 @@ We welcome contributions! See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
 ## Support
 
 - 📚 **Documentation**: Check [README.md](README.md)
-- 🐛 **Report Bugs**: [Open an Issue](https://github.com/yourusername/voiceflow/issues)
-- 💬 **Discussions**: [Start a Discussion](https://github.com/yourusername/voiceflow/discussions)
+- 🐛 **Report Bugs**: [Open an Issue](https://github.com/iamHimanshu-07/voiceflow/issues)
+- 💬 **Discussions**: [Start a Discussion](https://github.com/iamHimanshu-07/voiceflow/discussions)
 - 🔒 **Security**: Email security@voiceflow.dev
 
 ## License
@@ -110,6 +110,6 @@ This project is licensed under the MIT License - see [LICENSE](LICENSE) file for
 
 Made with ❤️ by VoiceFlow Contributors
 
-[Star us on GitHub](https://github.com/yourusername/voiceflow) ⭐
+[Star us on GitHub](https://github.com/iamHimanshu-07/voiceflow) ⭐
 
 </div>
