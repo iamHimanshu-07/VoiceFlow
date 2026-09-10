@@ -98,3 +98,9 @@ Built with:
 ## License
 
 MIT License - feel free to use and modify this project as needed.
+
+## Credits
+
+Himanshu Singh Yadav
+
+AI & ML Engineer
